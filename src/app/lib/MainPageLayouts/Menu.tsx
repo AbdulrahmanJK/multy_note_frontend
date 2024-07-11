@@ -1,16 +1,20 @@
+"use client";
+import { useStoreAuth } from "../../../store/Auth";
 import Image from "next/image";
 import OpenFolder from "/public/Open_Folder.svg";
 import CloseFolder from "/public/Close_Folder.svg";
 import PlusFolder from "/public/Plus_Folder.svg";
 import Plus from "/public/Plus.svg";
 import { useState } from "react";
-import { useStoreAuth } from "../../../store/Auth";
 
 const Menu = () => {
-  const token = useStoreAuth((state) => state.token);
-  console.log(token);
+  const login = useStoreAuth((state) => state.login);
 
-  
+  const getMe = useStoreAuth((state) => state.getMe);
+
+  const token = useStoreAuth((state) => state.token);
+  console.log(token + " Menu");
+
   const [folderOpen, setFoldlerOpen] = useState<boolean>(false);
   return (
     <div className="border w-[15%] border-red-800 border-1">

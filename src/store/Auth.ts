@@ -1,56 +1,55 @@
 import { create } from "zustand";
-import axios, { AxiosResponse } from "axios";
+import { register as authReg } from "@/app/api/AuthApi";
+import { login as authLog } from "@/app/api/AuthApi";
+import { getMe as myProfile } from "@/app/api/AuthApi";
+import { AxiosError } from "axios";
+import { persist } from "zustand/middleware";
 
 interface Data {
   token: string | null;
   login: (password: string, email: string) => Promise<void>;
-  register: (password: string, email: string, username:string) => Promise<void>;
+  register: (
+    password: string,
+    email: string,
+    username: string
+  ) => Promise<void>;
+  getMe: () => Promise<void>;
 }
+export const useStoreAuth = create<Data>()(
+  persist(
+    (set) => ({
+      token: null,
+      
+      login: async (email, password) => {
+        try {
+          const token = await authLog(email, password);
+          set({ token });
+          console.log(token);
+        } catch (e) {
+          if (e instanceof AxiosError) {
+            console.error(e.message, +"authLog");
+          }
+        }
+      },
+      register: async (email, password, username) => {
+        try {
+          await authReg(email, password, username);
+        } catch (e) {
+          console.error((e as Error).message);
+        }
+      },
+      getMe: async () => {
+        try {
+          await myProfile();
+        } catch (e) {
+          console.error((e as Error).message);
+        }
+      },
+    }),
 
-export const useStoreAuth = create<Data>((set) => ({
-  token: null,
-  login: async (email, password) => {
-    const url = "http://localhost:4000/login";
-    try {
-      const response: AxiosResponse = await axios.post(url, {
-        email: email,
-        password: password,
-      });
-
-      if (response.status !== 200) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const json =await response.data;
-      set(()=>({token:json}))
-
-      console.log(json);
-      return json
-    } catch (e) {
-      console.error((e as Error).message);
+    {
+      name: "token-storage",
     }
-  },
-  register: async (email, password, username) => {
-    const url = "http://localhost:4000/auth";
-    try {
-      const response: AxiosResponse = await axios.post(url, {
-        username:username,
-        email: email,
-        password: password,
-      });
+  )
+);
 
-      if (response.status !== 200) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-
-      const json =await response.data;
-      set(()=>({token:json}))
-
-      console.log(json);
-      return json
-    } catch (e) {
-      console.error((e as Error).message);
-    }
-  },
-  
-}));
