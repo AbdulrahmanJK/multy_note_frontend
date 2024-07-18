@@ -1,12 +1,13 @@
+import { api } from '@/interceptors/api';
 import { FoldersStore } from '@/types';
 import axios, { AxiosError, AxiosResponse } from 'axios';
-
-const host = process.env.BASE_URL;
+const host = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createFolders: FoldersStore['createFolders'] = async (name) => {
+
   const url = `${host}/folders`;
   try {
-    const response: AxiosResponse = await axios.post(url, {
+    const response: AxiosResponse = await api.post(url, {
       name: name,
     });
     if (response.status !== 200) {
@@ -26,7 +27,7 @@ export const createFolders: FoldersStore['createFolders'] = async (name) => {
 export const getFolders: FoldersStore['getFolders'] = async () => {
   const url = `${host}/folders`;
   try {
-    const response: AxiosResponse = await axios.get(url);
+    const response: AxiosResponse = await api.get(url);
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from getFolders`);
     }
@@ -43,7 +44,7 @@ export const getFolders: FoldersStore['getFolders'] = async () => {
 export const getByIdFolders: FoldersStore['getByIdFolders'] = async (id) => {
   const url = `${host}/folders/${id}`;
   try {
-    const response: AxiosResponse = await axios.get(url);
+    const response: AxiosResponse = await api.get(url);
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from getByIdFolders`);
     }
@@ -60,7 +61,7 @@ export const getByIdFolders: FoldersStore['getByIdFolders'] = async (id) => {
 export const deleteByIdFolders: FoldersStore['deleteByIdFolders'] = async (id) => {
   const url = `${host}/folders/${id}`;
   try {
-    const response: AxiosResponse = await axios.delete(url);
+    const response: AxiosResponse = await api.delete(url);
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from deleteByIdFolders`);
     }
@@ -77,7 +78,7 @@ export const deleteByIdFolders: FoldersStore['deleteByIdFolders'] = async (id) =
 export const patchByIdFolders: FoldersStore['patchByIdFolders'] = async (name, id) => {
   const url = `${host}/folders/${id}`;
   try {
-    const response: AxiosResponse = await axios.patch(url, {
+    const response: AxiosResponse = await api.patch(url, {
       name: name,
     });
     if (response.status !== 200) {

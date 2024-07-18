@@ -1,12 +1,13 @@
 import { NoteStore } from '@/types';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { api } from '@/interceptors/api';
 
-const host = process.env.BASE_URL;
+const host = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const NoteCreate: NoteStore['NoteCreate'] = async (id, title?, name?, image?) => {
   const url = `${host}/folders/${id}/notes`;
   try {
-    const response: AxiosResponse = await axios.post(url, {
+    const response: AxiosResponse = await api.post(url, {
       name: name,
       title: title,
       image: image,
@@ -27,7 +28,7 @@ export const NoteCreate: NoteStore['NoteCreate'] = async (id, title?, name?, ima
 export const NoteDelete: NoteStore['NoteDelete'] = async (NoteId, FolderId) => {
   const url = `${host}/folders/${FolderId}/notes/${NoteId}`;
   try {
-    const response: AxiosResponse = await axios.delete(url);
+    const response: AxiosResponse = await api.delete(url);
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from NoteDelete`);
     }
@@ -44,7 +45,7 @@ export const NoteDelete: NoteStore['NoteDelete'] = async (NoteId, FolderId) => {
 export const NotePatch: NoteStore['NotePatch'] = async (account, FolderId, NoteId, title?, name?, image?) => {
   const url = `${host}/folders/${FolderId}/notes/${NoteId}`;
   try {
-    const response: AxiosResponse = await axios.patch(url, {
+    const response: AxiosResponse = await api.patch(url, {
       name: name,
       title: title,
       account: account,
