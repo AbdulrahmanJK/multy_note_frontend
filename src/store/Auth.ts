@@ -4,9 +4,9 @@ import { login as authLog } from '@/app/api/AuthApi';
 import { getMe as myProfile } from '@/app/api/AuthApi';
 import { AxiosError } from 'axios';
 import { persist } from 'zustand/middleware';
-import { AuthTypes } from '@/types';
+import { AuthStore } from '@/types';
 
-export const useStoreAuth = create<AuthTypes>()(
+export const useStoreAuth = create<AuthStore>()(
   persist(
     (set) => ({
       token: null,
@@ -24,16 +24,10 @@ export const useStoreAuth = create<AuthTypes>()(
         }
       },
       register: async (email, password, username) => {
-        const res = await authReg(email, password, username);
-        return res;
+        return await authReg(email, password, username);
       },
       getMe: async () => {
-        try {
-          const res = await myProfile();
-          return res;
-        } catch (e) {
-          console.error((e as Error).message);
-        }
+        return await myProfile();
       },
     }),
 

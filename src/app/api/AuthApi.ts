@@ -1,8 +1,8 @@
-import { AuthTypes } from '@/types';
+import { AuthStore } from '@/types';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
-export const login: AuthTypes['login']  = async (email, password) => {
+export const login: AuthStore['login']  = async (email, password) => {
   const url = `${host}/login`;
   console.log(host);
 
@@ -26,7 +26,7 @@ export const login: AuthTypes['login']  = async (email, password) => {
     throw e;
   }
 };
-export const register: AuthTypes['register'] = async (email, password, username) => {
+export const register: AuthStore['register'] = async (email, password, username) => {
   const url = `${host}/auth`;
   try {
     const response: AxiosResponse = await axios.post(url, {
@@ -51,7 +51,7 @@ export const register: AuthTypes['register'] = async (email, password, username)
   }
 };
 
-export const getMe:AuthTypes['getMe'] = async () => {
+export const getMe:AuthStore['getMe'] = async () => {
   const url = `${host}/getMe`;
   try {
     const response: AxiosResponse = await axios.get(url, {});

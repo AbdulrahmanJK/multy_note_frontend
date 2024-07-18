@@ -1,51 +1,31 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 import {
-  FoldersGetById as GetByID,
-  FoldersGet as GetAll,
-  FoldersCreate as Make,
-  FoldersDeleteById as DeleteById,
-  FoldersPatchById as PatchById,
-} from "@/app/api/FoldersApi";
+  getByIdFolders as GetByID,
+  getFolders as GetAll,
+  createFolders as Make,
+  deleteByIdFolders as DeleteById,
+  patchByIdFolders as PatchById,
+} from '@/app/api/FoldersApi';
+import { FoldersStore } from '@/types';
 
-interface Data {}
-export const useStoreFolder = create<Data>((set) => ({
-  FoldersCreate: async (name: string) => {
-    try {
-      await Make(name);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+export const useStoreFolder = create<FoldersStore>((set) => ({
+  createFolders: async (name: string) => {
+    return await Make(name);
   },
 
-  FoldersGet: async () => {
-    try {
-      await GetAll();
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+  getFolders: async () => {
+    return await GetAll();
   },
 
-  FoldersGetById: async (id: string) => {
-    try {
-      await GetByID(id);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+  getByIdFolders: async (id: string) => {
+    return await GetByID(id);
   },
 
-  FoldersDeleteById: async (id: string) => {
-    try {
-      await DeleteById(id);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+  deleteByIdFolders: async (id: string) => {
+    return await DeleteById(id);
   },
 
-  FoldersPatchById: async (name:string, id:string) => {
-    try {
-      await PatchById(name, id)
-    } catch (e) {
-      console.error((e as Error).message)
-    }
+  patchByIdFolders: async (name: string, id: string) => {
+    return await PatchById(name, id);
   },
 }));

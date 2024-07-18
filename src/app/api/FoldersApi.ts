@@ -1,8 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { FoldersStore } from '@/types';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const host = process.env.BASE_URL;
 
-export const FoldersCreate = async (name: string): Promise<void> => {
+export const createFolders: FoldersStore['createFolders'] = async (name) => {
   const url = `${host}/folders`;
   try {
     const response: AxiosResponse = await axios.post(url, {
@@ -11,6 +12,9 @@ export const FoldersCreate = async (name: string): Promise<void> => {
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from FoldersCreate`);
     }
+    const json = await response.data;
+
+    return json;
   } catch (e) {
     if (e instanceof AxiosError) {
       console.log(`Error: ${e.response?.data?.error}`);
@@ -19,7 +23,7 @@ export const FoldersCreate = async (name: string): Promise<void> => {
   }
 };
 
-export const FoldersGet = async (): Promise<[]> => {
+export const getFolders: FoldersStore['getFolders'] = async () => {
   const url = `${host}/folders`;
   try {
     const response: AxiosResponse = await axios.get(url);
@@ -36,7 +40,7 @@ export const FoldersGet = async (): Promise<[]> => {
   }
 };
 
-export const FoldersGetById = async (id: string): Promise<{}> => {
+export const getByIdFolders: FoldersStore['getByIdFolders'] = async (id) => {
   const url = `${host}/folders/${id}`;
   try {
     const response: AxiosResponse = await axios.get(url);
@@ -53,13 +57,15 @@ export const FoldersGetById = async (id: string): Promise<{}> => {
   }
 };
 
-export const FoldersDeleteById = async (id: string): Promise<void> => {
+export const deleteByIdFolders: FoldersStore['deleteByIdFolders'] = async (id) => {
   const url = `${host}/folders/${id}`;
   try {
     const response: AxiosResponse = await axios.delete(url);
     if (response.status !== 200) {
       throw new Error(`${response.data} : throw from FoldersDeleteById`);
     }
+    const json = await response.data;
+    return json;
   } catch (e) {
     if (e instanceof AxiosError) {
       console.log(`Error: ${e.response?.data?.error}`);
@@ -68,10 +74,7 @@ export const FoldersDeleteById = async (id: string): Promise<void> => {
   }
 };
 
-export const FoldersPatchById = async (
-  name: string,
-  id: string
-): Promise<{}> => {
+export const patchByIdFolders: FoldersStore['patchByIdFolders'] = async (name, id) => {
   const url = `${host}/folders/${id}`;
   try {
     const response: AxiosResponse = await axios.patch(url, {
