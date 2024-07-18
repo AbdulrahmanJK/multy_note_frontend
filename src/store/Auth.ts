@@ -12,7 +12,7 @@ interface Data {
     password: string,
     email: string,
     username: string
-  ) => Promise<void>;
+  ) => Promise<string>;
   getMe: () => Promise<void>;
 }
 export const useStoreAuth = create<Data>()(
@@ -32,11 +32,8 @@ export const useStoreAuth = create<Data>()(
         }
       },
       register: async (email, password, username) => {
-        try {
-          await authReg(email, password, username);
-        } catch (e) {
-          console.error((e as Error).message);
-        }
+          const res = await authReg(email, password, username);
+          return res
       },
       getMe: async () => {
         try {
