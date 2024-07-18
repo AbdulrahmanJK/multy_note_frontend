@@ -26,7 +26,7 @@ export default function RegisterPage() {
   } = useForm<Data>();
   const onSubmit = async (data: Data) => {
     const { username, email, password } = data;
-    mutate('admin2@mail.ru', 'admin', 'admin');
+    mutate(username, email, password);
   };
   console.log(data);
 
@@ -57,7 +57,7 @@ export default function RegisterPage() {
             className={
               ' h-[40px] w-full p-2 border border-[#363738] rounded bg-[#232324] text-white mb-[8px]'
             }
-            type='tel'
+            type='password'
             placeholder='Password'
             {...register('password', { required: true, minLength: 1 })}
           />
