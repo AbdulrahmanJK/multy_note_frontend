@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   return (
     <div className=" flex items-center justify-center h-svh w-[100%]">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center  max-w-[500px]">
         <div className="">
           <h1 className="text-[36px]">SignIn</h1>
         </div>
@@ -63,7 +63,7 @@ export default function LoginPage() {
           />
         </form>
         <Link href={"/RegisterPage"}>
-          <p className="text-blue-500 text-[12px]">Don't you have an account?</p>{" "}
+          <p className="text-blue-500 text-[18px]">Don't you have an account?</p>{" "}
         </Link>
       </div>
     </div>

@@ -1,10 +1,8 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { AuthTypes } from '@/types';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
-export const login = async (
-  email: string,
-  password: string
-): Promise<string> => {
+export const login: AuthTypes['login']  = async (email, password) => {
   const url = `${host}/login`;
   console.log(host);
 
@@ -28,20 +26,14 @@ export const login = async (
     throw e;
   }
 };
-export const register = async (
-  email: string,
-  password: string,
-  username: string
-): Promise<undefined> => {
+export const register: AuthTypes['register'] = async (email, password, username) => {
   const url = `${host}/auth`;
   try {
-    const response: AxiosResponse = await axios
-      .post(url, {
-        username: username,
-        email: email,
-        password: password,
-      })
-    console.log(response);
+    const response: AxiosResponse = await axios.post(url, {
+      username: username,
+      email: email,
+      password: password,
+    });
 
     if (response.status !== 200) {
       throw new Error(`${response.status} : throw from register`);
@@ -54,13 +46,12 @@ export const register = async (
     console.error((e as Error).message);
     if (e instanceof AxiosError) {
       console.log(`Error: ${e.response?.data?.error}`);
-      throw (e.response?.data?.error);
-
+      throw e.response?.data?.error;
     }
   }
 };
 
-export const getMe = async () => {
+export const getMe:AuthTypes['getMe'] = async () => {
   const url = `${host}/getMe`;
   try {
     const response: AxiosResponse = await axios.get(url, {});
@@ -70,7 +61,6 @@ export const getMe = async () => {
     }
 
     const json = await response.data;
-
     console.log(json);
     return json;
   } catch (e) {
