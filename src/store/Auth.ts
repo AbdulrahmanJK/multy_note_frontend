@@ -12,16 +12,11 @@ export const useStoreAuth = create<AuthStore>()(
       token: null,
 
       login: async (email, password) => {
-        try {
           const token = await authLog(email, password);
           set({ token });
           console.log(token);
           return token;
-        } catch (e) {
-          if (e instanceof AxiosError) {
-            console.error(e.message);
-          }
-        }
+        
       },
       register: async (email, password, username) => {
         return await authReg(email, password, username);

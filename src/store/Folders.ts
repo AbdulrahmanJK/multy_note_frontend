@@ -9,12 +9,17 @@ import {
 import { FoldersStore } from '@/types';
 
 export const useStoreFolder = create<FoldersStore>((set) => ({
+  folders:[],
+
   createFolders: async (name: string) => {
     return await Make(name);
   },
 
   getFolders: async () => {
-    return await GetAll();
+    const newFolders = await GetAll();
+    set((state) => ({ folders:  newFolders }));
+    return newFolders;
+    
   },
 
   getByIdFolders: async (id: string) => {
