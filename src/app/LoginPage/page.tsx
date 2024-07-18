@@ -31,7 +31,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <input
             className={
-              "text-[black] h-[40px] w-full p-2 border border-[#363738] rounded bg-[#232324] text-white mb-[8px]"
+              " h-[40px] w-full p-2 border border-[#363738] rounded bg-[#232324] text-white mb-[8px]"
             }
             type="text"
             placeholder="Email"
@@ -40,7 +40,7 @@ export default function LoginPage() {
 
           <input
             className={
-              "text-[black] h-[40px] w-full p-2 border border-[#363738] rounded bg-[#232324] text-white mb-[8px]"
+              " h-[40px] w-full p-2 border border-[#363738] rounded bg-[#232324] text-white mb-[8px]"
             }
             type="tel"
             placeholder="Password"
