@@ -10,7 +10,7 @@ export const createFolders: FoldersStore['createFolders'] = async (name) => {
       name: name,
     });
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from FoldersCreate`);
+      throw new Error(`${response.data} : throw from createFolders`);
     }
     const json = await response.data;
 
@@ -28,7 +28,7 @@ export const getFolders: FoldersStore['getFolders'] = async () => {
   try {
     const response: AxiosResponse = await axios.get(url);
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from FoldersGet`);
+      throw new Error(`${response.data} : throw from getFolders`);
     }
     const json = await response.data;
     return json;
@@ -45,7 +45,7 @@ export const getByIdFolders: FoldersStore['getByIdFolders'] = async (id) => {
   try {
     const response: AxiosResponse = await axios.get(url);
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from FoldersGetById`);
+      throw new Error(`${response.data} : throw from getByIdFolders`);
     }
     const json = await response.data;
     return json;
@@ -62,7 +62,7 @@ export const deleteByIdFolders: FoldersStore['deleteByIdFolders'] = async (id) =
   try {
     const response: AxiosResponse = await axios.delete(url);
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from FoldersDeleteById`);
+      throw new Error(`${response.data} : throw from deleteByIdFolders`);
     }
     const json = await response.data;
     return json;
@@ -81,7 +81,7 @@ export const patchByIdFolders: FoldersStore['patchByIdFolders'] = async (name, i
       name: name,
     });
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from FoldersGetById`);
+      throw new Error(`${response.data} : throw from patchByIdFolders`);
     }
     const json = await response.data;
     return json;

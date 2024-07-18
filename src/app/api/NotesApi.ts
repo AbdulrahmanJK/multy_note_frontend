@@ -29,7 +29,7 @@ export const NoteDelete: NoteStore['NoteDelete'] = async (NoteId, FolderId) => {
   try {
     const response: AxiosResponse = await axios.delete(url);
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from NoteCreate`);
+      throw new Error(`${response.data} : throw from NoteDelete`);
     }
     const json = await response.data;
     return json;
@@ -51,7 +51,7 @@ export const NotePatch: NoteStore['NotePatch'] = async (account, FolderId, NoteI
       image: image,
     });
     if (response.status !== 200) {
-      throw new Error(`${response.data} : throw from NoteCreate`);
+      throw new Error(`${response.data} : throw from NotePatch`);
     }
     const json = await response.data;
     return json;
