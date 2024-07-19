@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { register as authReg } from '@/app/api/AuthApi';
 import { login as authLog } from '@/app/api/AuthApi';
 import { getMe as myProfile } from '@/app/api/AuthApi';
-import { AxiosError } from 'axios';
 import { persist } from 'zustand/middleware';
 import { AuthStore } from '@/types';
 

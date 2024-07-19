@@ -11,26 +11,26 @@ import { FoldersStore } from '@/types';
 export const useStoreFolder = create<FoldersStore>((set) => ({
   folders:[],
 
-  createFolders: async (name: string) => {
+  createFolders: async (name) => {
     return await Make(name);
   },
 
   getFolders: async () => {
     const newFolders = await GetAll();
-    set((state) => ({ folders:  newFolders }));
+    set(() => ({ folders:  newFolders }));
     return newFolders;
     
   },
 
-  getByIdFolders: async (id: string) => {
+  getByIdFolders: async (id) => {
     return await GetByID(id);
   },
 
-  deleteByIdFolders: async (id: string) => {
+  deleteByIdFolders: async (id) => {
     return await DeleteById(id);
   },
 
-  patchByIdFolders: async (name: string, id: string) => {
+  patchByIdFolders: async (name, id) => {
     return await PatchById(name, id);
   },
 }));

@@ -4,41 +4,18 @@ import {
   NotePatch as Patch,
 } from "@/app/api/NotesApi";
 import { create } from "zustand";
-
-interface Data {}
-export const useStoreNote = create<Data>((set) => ({
-  NoteCreate: async (
-    id: string,
-    account: string,
-    title?: string,
-    name?: string,
-    image?: string
-  ) => {
-    try {
-      await Create(id, account, title, name, image);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+import { NoteStore } from "@/types";
+export const useStoreNote = create<NoteStore>((set) => ({
+  NoteCreate: async (id, account, title?, name?, image?) => {
+    const res = await Create(id, account, title, name, image);
+    return res;
   },
-  NotePatch: async (
-    FolderId: string,
-    NoteId: string,
-    account: string,
-    title?: string,
-    name?: string,
-    image?: string
-  ) => {
-    try {
-      Patch(NoteId, FolderId, account, title, name, image);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+  NotePatch: async (FolderId, NoteId, account, title, name, image) => {
+    const res = Patch(NoteId, FolderId, account, title, name, image);
+    return res;
   },
-  NoteDelete: async (FolderId: string, NoteId: string) => {
-    try {
-      Delete(FolderId, NoteId);
-    } catch (e) {
-      console.error((e as Error).message);
-    }
+  NoteDelete: async (FolderId, NoteId) => {
+    const res = Delete(FolderId, NoteId);
+    return res;
   },
 }));

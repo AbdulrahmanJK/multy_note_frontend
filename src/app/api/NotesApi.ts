@@ -1,5 +1,5 @@
 import { NoteStore } from '@/types';
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 import { api } from '@/interceptors/api';
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
