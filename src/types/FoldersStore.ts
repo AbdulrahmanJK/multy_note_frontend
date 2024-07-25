@@ -4,5 +4,5 @@ export interface FoldersStore {
   getByIdFolders: (id: string) => Promise<{} | string>;
   deleteByIdFolders: (id: string) => Promise<{} | string>;
   patchByIdFolders: (name: string, id: string) => Promise<{} | string>;
-  folders:object[]
+  folders:Record<string, string>[]
 }
